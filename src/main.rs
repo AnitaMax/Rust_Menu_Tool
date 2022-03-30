@@ -1,13 +1,46 @@
+pub mod LinkedList;
+pub mod command;
 use std::io;
+// use std::sync::Mutex;
+use std::io::Write;
+// use std::process::Command; 
+
+// #[macro_use]
+// extern crate lazy_static; 
+
+
+use command::CommandManager;
 
 fn main() {
-    let mut s=String::new();
-    println!("请输入命令:");
-    io::stdin().read_line(&mut s).expect("read error");
-    let mut it=s.split_whitespace();
-    match it.next().unwrap() {
-            "help"| "h" => println!("帮助信息"),
-            "test" | "t" => println!("测试信息"),
-            _ => println!("输入无效"),
+
+    let mut  command_manager:CommandManager =CommandManager::new();
+    command_manager.add_command("test","测试命令",|x,_|{
+        println!("输出测试:{}",x);
+        0
+    });
+
+    command_manager.add_command("help","帮助",|_,m|{
+        m.print_all();
+        0
+    });
+
+    //获取用户输入
+    let input=io::stdin();
+    loop{
+        print!(">请输入命令:");
+        if io::stdout().flush().is_err() {
+            println!("flush err")
+        }
+        let mut cmd=String::new();
+        input.read_line(&mut cmd).unwrap();
+        let cmd_vec:Vec<&str>=cmd.trim().split(" ").collect();
+        if cmd_vec.len()>0{
+            let cmd=cmd_vec[0];
+            let mut arg="";
+            if cmd_vec.len()>1{
+                arg=cmd_vec[1];
+            }
+            command_manager.run(cmd,arg);
+        }
     }
 }
