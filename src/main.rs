@@ -1,5 +1,8 @@
-pub mod LinkedList;
-pub mod command;
+#[allow(non_snake_case)]
+mod LinkedTable;
+#[allow(non_snake_case)]
+mod Command;
+
 use std::io;
 // use std::sync::Mutex;
 use std::io::Write;
@@ -9,19 +12,23 @@ use std::io::Write;
 // extern crate lazy_static; 
 
 
-use command::CommandManager;
+use Command::command_manager::*;
 
 fn main() {
 
     let mut  command_manager:CommandManager =CommandManager::new();
-    command_manager.add_command("test","测试命令",|x,_|{
+    command_manager.add_command("test","测试命令参数的输入,会打印输入的参数",|x,_|{
         println!("输出测试:{}",x);
         0
     });
 
-    command_manager.add_command("help","帮助",|_,m|{
+    command_manager.add_command("help","帮助程序,打印所有命令",|_,m|{
         m.print_all();
         0
+    });
+
+    command_manager.add_command("quit","退出程序",|_,_|{
+        std::process::exit(0);
     });
 
     //获取用户输入
