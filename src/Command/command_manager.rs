@@ -1,4 +1,4 @@
-use crate::LinkedTable::linked_table::*;
+use linked_table::*;
 use crate::Command::command::Command;
 pub struct  CommandManager<'a>{
     commands:LinkedTable<Command<'a>>,

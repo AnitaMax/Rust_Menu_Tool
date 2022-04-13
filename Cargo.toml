@@ -7,3 +7,6 @@ edition = "2021"
 
 [dependencies]
 # lazy_static = "1.4.0"
+# 名字: 需要和 lib 库中 Cargo.toml 中定义的 name 一致
+# path: 指定路径 (相对于根项目的Cargo.toml)
+linked_table = { path = "./linked_table" }

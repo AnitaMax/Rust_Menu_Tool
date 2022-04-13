@@ -1,5 +1,5 @@
 #[allow(non_snake_case)]
-mod LinkedTable;
+use linked_table;
 #[allow(non_snake_case)]
 mod Command;
 

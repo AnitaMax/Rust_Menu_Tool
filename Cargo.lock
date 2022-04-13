@@ -3,5 +3,12 @@
 version = 3
 
 [[package]]
+name = "linked_table"
+version = "0.1.0"
+
+[[package]]
 name = "rust_menu"
 version = "0.1.0"
+dependencies = [
+ "linked_table",
+]
